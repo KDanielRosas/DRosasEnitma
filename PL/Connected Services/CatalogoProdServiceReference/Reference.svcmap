@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="ad21698c-a7fd-43ee-ad38-d9913e5f41bb" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:52355/CatalogoProdService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CatalogoProdService.disco" MetadataType="Disco" ID="4e34c70c-ef47-40b8-bf0d-f08571a40db8" SourceId="1" SourceUrl="http://localhost:52355/CatalogoProdService.svc?disco" />
+    <MetadataFile FileName="CatalogoProdService.xsd" MetadataType="Schema" ID="1f73d469-9bd9-4435-8fc9-49c53f70970a" SourceId="1" SourceUrl="http://localhost:52355/CatalogoProdService.svc?xsd=xsd1" />
+    <MetadataFile FileName="CatalogoProdService.wsdl" MetadataType="Wsdl" ID="b261499f-830e-4a44-9510-a70161e197b5" SourceId="1" SourceUrl="http://localhost:52355/CatalogoProdService.svc?wsdl" />
+    <MetadataFile FileName="CatalogoProdService1.xsd" MetadataType="Schema" ID="ed87aab4-6549-42c3-ba88-a40040ee388f" SourceId="1" SourceUrl="http://localhost:52355/CatalogoProdService.svc?xsd=xsd0" />
+    <MetadataFile FileName="CatalogoProdService2.xsd" MetadataType="Schema" ID="2aaa987a-5d10-46ac-a0a6-14063882a398" SourceId="1" SourceUrl="http://localhost:52355/CatalogoProdService.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

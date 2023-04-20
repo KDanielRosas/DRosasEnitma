@@ -1,0 +1,189 @@
+﻿@model ML.CatalogoProducto
+@{
+    ViewBag.Title = "GetAll";
+}
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <script type="text/javascript">
+        function Show(method) {
+            var div = $('#formAdd');
+            var p = $('#titulo');            
+            ValidarForm();
+            if (div[0].style.display == "none") {
+                if (method == 'Add') {
+                    p[0].innerText = "Registrar nuevo producto";
+                }
+                if (method == 'Update') {
+                    p[0].innerText = "Actualizar informacion del producto";
+                }
+                div[0].style.display = "block";
+            }
+            else {
+                div[0].style.display = "none";
+                Limpiar();
+            }
+        }
+
+        function Enviar(IdProducto) {
+            if (IdProducto == 0) {
+                Add();
+            }
+            else {
+                Update();
+            }
+        }
+
+        function Add() {
+            var descripcion = $('#txtDescripcion').val();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Add","CatalogoProducto")',
+                dataType: 'json',
+                data: { descripcion },
+                success: function () {
+                    alert('Se registró correctamente el producto');
+                    Limpiar();
+                    location.reload();
+                },
+                error: function (ex) {
+                    alert('Error:' + ex);
+                }
+            });
+        }
+
+        function Update() {
+            var idProducto = $('#txtIdProducto').val();
+            var descripcion = $('#txtDescripcion').val();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Update","CatalogoProducto")',
+                dataType: 'json',
+                data: { idProducto, descripcion },
+                success: function () {
+                    alert('Se actualizó el registro correctamente.');
+                    Limpiar();
+                    location.reload();
+                },
+                error: function (ex) {
+                    alert('Error:' + ex);
+                }
+            });
+        }
+
+        function GetById(IdProducto) {
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '@Url.Action("GetById","CatalogoProducto")',
+                data: { IdProducto },
+                success: function (result) {
+                    $('#txtIdProducto').val(result.IdProducto);
+                    $('#txtDescripcion').val(result.Descripcion);
+                    Show('Update');
+                }
+            })
+        }
+
+        function Limpiar() {
+            $('#txtDescripcion').val('');
+        }
+
+        function ValidarForm() {
+            if (($('#txtDescripcion').val()) != "") {
+                document.getElementById("btnSubmit").disabled = false; 
+            }
+            else {
+                document.getElementById("btnSubmit").disabled = true; 
+            }
+        }
+    </script>
+</head>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Catalogo de Productos</h2>
+        </div>
+        <div class="col" style="text-align:end">
+            <button class="btn btn-success" onclick="Show('Add')">Nuevo</button>
+        </div>
+    </div>
+    <hr />
+
+    <div style="display:none" id="formAdd">
+        <div id="title">
+            <p id="titulo" style="font-size:24px; font-weight:bold"></p>
+        </div>
+        
+        <div class="row">
+            <div>
+                @Html.TextBoxFor(model => model.IdProducto, new { @class = "visually-hidden", @id = "txtIdProducto" })
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    @Html.LabelFor(model => model.Descripcion)
+                    @Html.TextBoxFor(model => model.Descripcion, new
+               {
+                   @class = "form-control",
+                   @id = "txtDescripcion",
+                   @placeholder = "Descripcion",
+                   @onkeyup = "ValidarForm()"
+               })
+                    <br />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <input disabled type="submit" value="Guardar" class="btn btn-success" 
+                           onclick="Enviar($('#txtIdProducto').val())" id="btnSubmit"/>
+                </div>
+                <div class="col">
+                    <button class="btn btn-danger" onclick="Show('')">Cancelar</button>
+                </div>               
+            </div>            
+
+        </div><!-- form -->
+        <br />
+    </div>
+    
+
+    <div class="row">
+        @if (Model.Productos != null)
+        {
+            <table class="table table-bordered table-responsive">
+                <thead>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td class="text-center" style="font-weight:bold">IdProducto</td>
+                        <td class="text-center" style="font-weight:bold">Descripcion</td>
+                        <td class="text-center" style="font-weight:bold">IdUsuario</td>
+                        <td class="text-center" style="font-weight:bold">FechaCreacion</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ML.CatalogoProducto item in Model.Productos)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                <a class="btn btn-warning" onclick="GetById(@item.IdProducto)">Edit</a>
+                            </td>
+                            <td>@item.IdProducto</td>
+                            <td>@item.Descripcion</td>
+                            <td>@item.IdUsuario</td>
+                            <td>@item.FechaCreacion</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert-danger" role="alert">No hay registros que mostrar. Agregue uno nuevo.</div>
+        }
+    </div>
+</div><!-- container -->
+
